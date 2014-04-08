@@ -3,8 +3,10 @@ var PROJECT = PROJECT || {};
 PROJECT.Setup = function(container, opts){
 	opts = opts || {};
 
+	var sphereMesh;
+
 	var camera, scene, renderer, w, h;
-	var mesh, atmosphere, point;
+	var atmosphere, point;
 
 	var overRenderer;
 
@@ -29,8 +31,8 @@ PROJECT.Setup = function(container, opts){
 		var geometry = new THREE.SphereGeometry(0.5, 32, 32);
 		var material = new THREE.MeshPhongMaterial();
 		material.map = THREE.ImageUtils.loadTexture('images/243.jpg');
-		var mesh = new THREE.Mesh(geometry, material);
-		mesh.rotation.y = Math.PI;
+		sphereMesh = new THREE.Mesh(geometry, material);
+		sphereMesh.rotation.y = Math.PI;
 
 		/*
 		*	Light Objects Here
@@ -42,7 +44,7 @@ PROJECT.Setup = function(container, opts){
 		*	Scene Stuff Here
 		*/
 		scene = new THREE.Scene();
-		scene.add(mesh);
+		scene.add(sphereMesh);
 		scene.add(ambientLight);
 
 		/*
@@ -126,6 +128,8 @@ PROJECT.Setup = function(container, opts){
 	*	Animation call function. Do all animation calls here.
 	*/
 	function animate(){
+		sphereMesh.rotation.y += 0.005;
+
 		requestAnimationFrame(animate);
 		render();
 	}
